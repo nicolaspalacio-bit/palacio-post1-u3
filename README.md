@@ -34,19 +34,14 @@
 
 ## 📋 Descripción
 
-Este repositorio resuelve el post-contenido de la Unidad 3 en un único proyecto Spring Boot
-(`confudes-patrones-estructurales`) que interviene el backend real de **ConfUDES**, la plataforma
-interna de la universidad para el registro de asistencia y la emisión de certificados de sus
-congresos académicos. Cada una de las cuatro necesidades reportadas por el equipo de mantenimiento
-se resolvió aplicando **un** patrón estructural GoF, sin modificar ninguna de las clases entregadas
-como código dado y sin fusionar responsabilidades que el enunciado exige mantener separadas.
+
 
 | # | Necesidad | Síntoma de diseño | Patrón aplicado |
 |---|---|---|---|
-| 1 | Registro de asistencia con `QRCheckAPI` | Un colaborador externo con contrato incompatible que el resto del sistema no debe conocer | 🔌 **Adapter** |
-| 2 | Emisión de certificados con 4 colaboradores | Un controlador que orquesta demasiados colaboradores conocidos directamente | 🏛️ **Facade** |
-| 3 | Mejoras opcionales y combinables del PDF | Comportamiento apilable en combinaciones que no deben multiplicar clases | 🎁 **Decorator** |
-| 4 | Control de acceso a la descarga masiva | Una operación costosa que debe negarse *antes* de ejecutarse según el rol | 🛡️ **Proxy** |
+| 1 | Registro de asistencia con `QRCheckAPI` | Un colaborador externo con contrato incompatible que el resto del sistema no debe conocer |  **Adapter** |
+| 2 | Emisión de certificados con 4 colaboradores | Un controlador que orquesta demasiados colaboradores conocidos directamente |  **Facade** |
+| 3 | Mejoras opcionales y combinables del PDF | Comportamiento apilable en combinaciones que no deben multiplicar clases |  **Decorator** |
+| 4 | Control de acceso a la descarga masiva | Una operación costosa que debe negarse *antes* de ejecutarse según el rol |  **Proxy** |
 
 ---
 
@@ -77,15 +72,15 @@ palacio-post1-u3/
     │   │   ├── ServicioCertificados.java              contrato formal (Paso 7)
     │   │   ├── SolicitudCertificado.java              DTO de la solicitud
     │   │   ├── AsistenciaInsuficienteException.java   excepción de dominio
-    │   │   ├── EmisionCertificadoFacade.java         🏛️ Facade — SOLUCIÓN Nec. 2
+    │   │   ├── EmisionCertificadoFacade.java          Facade — SOLUCIÓN Nec. 2
     │   │   ├── ControladorCertificados.java           (DADO, refactorizado)
-    │   │   ├── MejoraCertificadoDecorator.java        🎁 base del Decorator — Nec. 3
-    │   │   ├── MarcaDeAguaDecorator.java              🎁 mejora combinable
-    │   │   ├── CodigoQRDecorator.java                 🎁 mejora combinable
-    │   │   └── TraduccionDecorator.java               🎁 mejora combinable
+    │   │   ├── MejoraCertificadoDecorator.java         base del Decorator — Nec. 3
+    │   │   ├── MarcaDeAguaDecorator.java               mejora combinable
+    │   │   ├── CodigoQRDecorator.java                  mejora combinable
+    │   │   └── TraduccionDecorator.java                mejora combinable
     │   └── acceso/                                    Necesidad 4
     │       ├── ContextoUsuario.java                   (DADO)
-    │       └── ServicioCertificadosControlAcceso.java 🛡️ Proxy — SOLUCIÓN
+    │       └── ServicioCertificadosControlAcceso.java  Proxy — SOLUCIÓN
     └── test/java/com/universidad/confudes/
         ├── asistencia/CheckInIntegracionTest.java
         ├── certificados/EmisionCertificadoTest.java
@@ -99,7 +94,7 @@ palacio-post1-u3/
 
 ---
 
-## ▶️ Cómo ejecutar
+##  Cómo ejecutar
 
 ```bash
 mvn clean package
@@ -112,7 +107,7 @@ Los cuatro archivos de prueba (uno por necesidad) validan **comportamiento**, no
 
 ---
 
-## 🧩 Parte 1 — Decisiones de diseño
+##  Parte 1 — Decisiones de diseño
 
 ### Necesidad 1 — Registro de asistencia (`asistencia/ServicioAsistenciaAdapter`)
 
@@ -175,7 +170,7 @@ solo les da un único punto de coordinación para este caso de uso.
 
 ---
 
-## 🧵 Parte 2 — Decisiones de diseño
+##  Parte 2 — Decisiones de diseño
 
 ### Necesidad 3 — Mejoras combinables del certificado (`certificados/*Decorator`)
 
@@ -184,7 +179,7 @@ solo les da un único punto de coordinación para este caso de uso.
 **Síntoma de diseño.** Sobre el PDF ya emitido por `ServicioCertificados`, los organizadores piden
 activar —por evento, en cualquier combinación— tres mejoras (marca de agua, código QR de
 verificación, traducción al inglés), apoyadas en `UtilidadesPDF` (no modificable). Con tres mejoras
-hay ocho combinaciones posibles, y el enunciado exige que agregar o quitar una mejora no cree una
+hay ocho combinaciones posibles, y se exige que agregar o quitar una mejora no cree una
 clase nueva por combinación.
 
 **Alternativas descartadas (Punto de decisión 3):**
@@ -262,7 +257,7 @@ de la implementación usada específicamente para la descarga masiva de organiza
 
 ---
 
-## 🔍 Reflexión — Composite y Flyweight (no rubricada)
+##  Reflexión — Composite y Flyweight (no rubricada)
 
 **Agenda del congreso (tracks → sesiones → actividades).** De los siete patrones estructurales de
 la guía, **Composite** encajaría de forma natural en la agenda de cada congreso: un track contiene
@@ -283,7 +278,7 @@ totalidad es específica de un único asistente.
 
 ---
 
-## 🛠️ Herramientas utilizadas
+##  Herramientas utilizadas
 
 - Java 17, Spring Boot 3.2.0, Apache Maven, JUnit 5
 - Visual Studio Code / IntelliJ IDEA Community
@@ -291,7 +286,7 @@ totalidad es específica de un único asistente.
 
 ---
 
-## ✅ Conclusiones
+##  Conclusiones
 
 Las cuatro necesidades confirman que la distinción entre patrones estructurales rara vez la da la
 forma del diagrama de clases —Adapter, Facade, Decorator y Proxy comparten en distinto grado el
