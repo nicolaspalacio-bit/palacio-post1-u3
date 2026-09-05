@@ -22,14 +22,13 @@
 ## 📑 Tabla de contenido
 
 1. [Descripción](#-descripción)
-2. [Mapa de decisiones](#-mapa-de-decisiones)
-3. [Estructura del proyecto](#-estructura-del-proyecto)
-4. [Cómo ejecutar](#-cómo-ejecutar)
-5. [Parte 1 — Decisiones de diseño](#-parte-1--decisiones-de-diseño)
-6. [Parte 2 — Decisiones de diseño](#-parte-2--decisiones-de-diseño)
-7. [Reflexión — Composite y Flyweight](#-reflexión--composite-y-flyweight-no-rubricada)
-8. [Herramientas utilizadas](#-herramientas-utilizadas)
-9. [Conclusiones](#-conclusiones)
+2. [Estructura del proyecto](#-estructura-del-proyecto)
+3. [Cómo ejecutar](#-cómo-ejecutar)
+4. [Parte 1 — Decisiones de diseño](#-parte-1--decisiones-de-diseño)
+5. [Parte 2 — Decisiones de diseño](#-parte-2--decisiones-de-diseño)
+6. [Reflexión — Composite y Flyweight](#-reflexión--composite-y-flyweight-no-rubricada)
+7. [Herramientas utilizadas](#-herramientas-utilizadas)
+8. [Conclusiones](#-conclusiones)
 
 ---
 
@@ -48,38 +47,6 @@ como código dado y sin fusionar responsabilidades que el enunciado exige manten
 | 2 | Emisión de certificados con 4 colaboradores | Un controlador que orquesta demasiados colaboradores conocidos directamente | 🏛️ **Facade** |
 | 3 | Mejoras opcionales y combinables del PDF | Comportamiento apilable en combinaciones que no deben multiplicar clases | 🎁 **Decorator** |
 | 4 | Control de acceso a la descarga masiva | Una operación costosa que debe negarse *antes* de ejecutarse según el rol | 🛡️ **Proxy** |
-
----
-
-## 🗺️ Mapa de decisiones
-
-El taller pre-contenido (adjunto como referencia de estudio, no como entregable de este
-post-contenido) desarrolló el criterio operativo usado aquí para distinguir patrones que se parecen
-estructuralmente: **retirar mentalmente la clase envolvente y observar qué le exige al cliente**.
-
-```
-                     ¿Cuántos colaboradores conoce el cliente?
-                                     │
-                 ┌───────────────────┴───────────────────┐
-                 │                                        │
-              UNO                                       VARIOS
-                 │                                        │
-   ¿Su contrato ya es compatible?                  Facade (Necesidad 2)
-                 │
-        ┌────────┴────────┐
-        │                 │
-       NO                SÍ
-        │                 │
-  Adapter (Nec. 1)   ¿Decide SI la llamada ocurre,
-                      o QUÉ MÁS hace el objeto?
-                             │
-                 ┌───────────┴───────────┐
-                 │                       │
-           Decide el flujo         Añade capacidades
-           (condiciona)            (siempre delega)
-                 │                       │
-          Proxy (Nec. 4)         Decorator (Nec. 3)
-```
 
 ---
 
